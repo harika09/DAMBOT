@@ -14,7 +14,7 @@ from discord_webhook import DiscordWebhook, DiscordEmbed
 #Login Details
 email = 'emale here'
 password = "password here"
-itemUrl = 'Ulr'
+itemUrl = 'Url'
 itemSize = 'Size'
 
 
