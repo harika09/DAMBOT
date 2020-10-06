@@ -12,10 +12,10 @@ from fake_useragent import UserAgent
 from discord_webhook import DiscordWebhook, DiscordEmbed
 
 #Login Details
-email = 'sample123@gmail.com'
-password = "Sample12345"
-itemUrl = 'https://www.titan22.com'
-itemSize = '10.5'
+email = 'emale here'
+password = "password here"
+itemUrl = 'Ulr'
+itemSize = 'Size'
 
 
 #Payment Details
