@@ -13,4 +13,4 @@ Features:
 TODO
 - Improve checkout Speed
 - Bug with place order on Checkout page
-- Mutilple selection of size when selected size is not available
+- Multiple selection of size when selected size is not available
