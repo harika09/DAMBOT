@@ -12,10 +12,10 @@ from fake_useragent import UserAgent
 from discord_webhook import DiscordWebhook, DiscordEmbed
 
 #Login Details
-email = 'emale here'
-password = "password here"
-itemUrl = 'Url'
-itemSize = 'Size'
+email = 'email'
+password = "password"
+itemUrl = 'item URL'
+itemSize = 'size'
 
 
 #Payment Details
@@ -95,9 +95,11 @@ except:
 
 #Checkout Page
 try:
-	
+	credit = WebDriverWait(driver, 1900).until(
+		EC.presence_of_element_located((By.ID, 'ccpp'))).click()
 	checkout = WebDriverWait(driver, 1900).until(
-		EC.presence_of_element_located((By.XPATH, '//*[@id="checkout"]/div[5]/div[3]/div/div[4]/div/div/button'))).click()
+		EC.presence_of_element_located((By.XPATH, '//*[@id="checkout"]/div[5]/div[2]/div/div[4]/div/div/button')))
+	checkout.click()
 	print("Waiting for Payment Page to load....")
 except:
 	print("Checkout Failed")
@@ -123,11 +125,11 @@ try:
 	drp.select_by_visible_text(card_Year)
 	element = WebDriverWait(driver, 100).until(
 		EC.presence_of_element_located((By.ID, "btnCCSubmit"))).click()
-	orderNumber =driver.find_element_by_xpath('//*[@id="payment-order"]').text
+	orderNumber =driver.find_element_by_xpath('//*[@id="payment-order"]/span').text
 	print("Payment sucess check for OTP/Password")
 
 
-	webhook = DiscordWebhook(url='https://discordapp.com/api/webhooks/690029142032646242/4mhafBRqtyIN9KfSwnapunRKllO64S76OC_tohHud0_Y-r7b9fPAIqCycEPzjSN1c87h', username='DAMBOTv0.4')
+	webhook = DiscordWebhook(url='https://discordapp.com/api/webhooks/690029142032646242/4mhafBRqtyIN9KfSwnapunRKllO64S76OC_tohHud0_Y-r7b9fPAIqCycEPzjSN1c87h', username='DAMBOTv0.6')
 
 	# create embed object for webhook
 	embed = DiscordEmbed(title='Checkout Success', description=itemName, color=242424)
@@ -151,7 +153,7 @@ try:
 	embed.set_thumbnail(url=imageSrc)
 
 	# set footer
-	embed.set_footer(text='DAMBOTv0.4 developed by KyaAlod')
+	embed.set_footer(text='DAMBOTv0.6 developed by KyaAlod')
 
 	# set timestamp (default is now)
 	embed.set_timestamp()
