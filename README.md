@@ -2,7 +2,8 @@
 DAMBOTv0.6(Web Automation + Autofill forms)
 
  Update Fixed:
-- Updated checkout page changes
+- Updated checkout page
+- improved checkout speed
 
  Features:
 - Bypass Queue system using chrome extension
