@@ -87,8 +87,8 @@ try:
 	AddtoCart = WebDriverWait(driver, 1900).until(
 		EC.presence_of_element_located((By.ID, 'product-addtocart-button'))).click()
 	proceedToCheckout = WebDriverWait(driver, 1900).until(
-		EC.presence_of_element_located((By.ID, 'ajaxcart_cancel'))).click() #continuea jaxcart_checkout
-	driver.get('https://www.titan22.com/checkout/')
+		EC.presence_of_element_located((By.ID, 'ajaxcart_checkout'))).click() #continuea jaxcart_checkout
+	#driver.get('https://www.titan22.com/checkout/')
 	print("Waiting for checkout page to load...")
 except:
 	print("Selecting size Failed")
@@ -96,10 +96,9 @@ except:
 #Checkout Page
 try:
 	credit = WebDriverWait(driver, 1900).until(
-		EC.presence_of_element_located((By.ID, 'ccpp'))).click()
+		EC.presence_of_element_located((By.XPATH, "//INPUT[@id='ccpp']"))).click()
 	checkout = WebDriverWait(driver, 1900).until(
-		EC.presence_of_element_located((By.XPATH, '//*[@id="checkout"]/div[5]/div[2]/div/div[4]/div/div/button')))
-	checkout.click()
+		EC.presence_of_element_located((By.XPATH, "(//SPAN[text()='Place Order'])[2]"))).click()
 	print("Waiting for Payment Page to load....")
 except:
 	print("Checkout Failed")
