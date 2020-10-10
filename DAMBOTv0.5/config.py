@@ -1,14 +1,14 @@
 #Login Details
-email = 'sample@gmail.com'
-password = "Sample12345"
-itemUrl = 'https://www.titan22.com/nike-air-force-1-07-craft-black-white.html'
-itemSize = '10'
+email = 'email'
+password = "password"
+itemUrl = 'product_link'
+itemSize = 'size'
 
 
 #Payment Details
-card_Number = '5188690464584111'
-card_Holder_name = 'sample sample'
-card_Cvv= '123'
-card_Bank_name = 'HSBC'
-card_Month='01'
-card_Year='2022'
+card_Number = 'card_number'
+card_Holder_name = 'card_holder'
+card_Cvv= 'cvv'
+card_Bank_name = 'bank_name'
+card_Month='card_month'
+card_Year='card_year'
