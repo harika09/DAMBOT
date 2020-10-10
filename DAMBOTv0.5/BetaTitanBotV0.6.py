@@ -10,22 +10,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 from fake_useragent import UserAgent
 from discord_webhook import DiscordWebhook, DiscordEmbed
-
-#Login Details
-email = 'email'
-password = "password"
-itemUrl = 'item URL'
-itemSize = 'size'
-
-
-#Payment Details
-card_Number = '5188690464584111'
-card_Holder_name = 'sample sample'
-card_Cvv= '123'
-card_Bank_name = 'HSBC'
-card_Month='01'
-card_Year='2022'
-
+from config import email, password, itemUrl, itemSize, card_Number, card_Holder_name, card_Cvv, card_Bank_name, card_Month, card_Year
 
  #WebDriver
 PATH = "C:\Program Files (x86)\chromedriver.exe"
