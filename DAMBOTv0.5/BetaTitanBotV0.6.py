@@ -80,10 +80,10 @@ except:
 
 #Checkout Page
 try:
-	credit = WebDriverWait(driver, 1900).until(
-		EC.presence_of_element_located((By.XPATH, "//INPUT[@id='ccpp']"))).click()
+	#credit = WebDriverWait(driver, 1900).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[1]/main/div[3]/div/div[3]/div[5]/div[2]/div[2]/li/div/form/fieldset/div[1]/div/div/div[3]/div[1]/input'))).click()
 	checkout = WebDriverWait(driver, 1900).until(
-		EC.presence_of_element_located((By.XPATH, "(//SPAN[text()='Place Order'])[2]"))).click()
+		EC.presence_of_element_located((By.XPATH, "(//BUTTON[@class='action primary checkout'])[3]")))
+	checkout.click()
 	print("Waiting for Payment Page to load....")
 except:
 	print("Checkout Failed")
