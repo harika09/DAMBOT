@@ -56,7 +56,7 @@ try:
 	SKU = driver.find_element_by_xpath('//*[@id="maincontent"]/div[3]/div/div[1]/div[1]/div[2]/div[6]').text
 	price = driver.find_element_by_class_name("price").text
 	itemName = driver.find_element_by_class_name("base").text
-	#quantity = WebDriverWait(driver, 1900).until(EC.presence_of_element_located((By.ID, 'qty'))).send_keys("1")
+	quantity = WebDriverWait(driver, 1900).until(EC.presence_of_element_located((By.ID, 'qty'))).send_keys("1")
 	SelectedSize = WebDriverWait(driver, 1900).until(	EC.presence_of_element_located((By.ID, 'attribute139')))
 	AvailSize = Select(SelectedSize)
 	AvailSize.select_by_visible_text(itemSize)
