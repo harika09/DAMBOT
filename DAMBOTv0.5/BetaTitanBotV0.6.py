@@ -14,11 +14,12 @@ from config import email, password, itemUrl, itemSize, card_Number, card_Holder_
 
  #WebDriver
 PATH = "C:\Program Files (x86)\chromedriver.exe"
-chrome_options = Options()
-chrome_options.add_extension("bfgblailifedppfilabonohepkofbkpm.crx")
+options = Options()
+options.add_argument("--start-maximized");
+options.add_extension("bfgblailifedppfilabonohepkofbkpm.crx")
 user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36'
-chrome_options.add_argument("user-agent="+user_agent)
-driver = webdriver.Chrome(PATH,chrome_options=chrome_options)
+options.add_argument("user-agent="+user_agent)
+driver = webdriver.Chrome(PATH,options=options)
 driver.get("chrome-extension://bfgblailifedppfilabonohepkofbkpm/index.html")
 
 #Bypass Queue-it
@@ -41,12 +42,9 @@ except:
 try:
 	print('Loggin in...')
 	driver.get('https://www.titan22.com/customer/account/login/')
-	emailAddress = WebDriverWait(driver, 1900).until(
-		EC.presence_of_element_located((By.ID, "email"))).send_keys(email)
-	pword = WebDriverWait(driver, 1900).until(
-		EC.presence_of_element_located((By.ID, "pass"))).send_keys(password)
-	loginButton = WebDriverWait(driver, 1900).until(
-		EC.presence_of_element_located((By.ID, "send2"))).click()
+	emailAddress = WebDriverWait(driver, 1900).until(EC.presence_of_element_located((By.ID, "email"))).send_keys(email)
+	pword = WebDriverWait(driver, 1900).until(EC.presence_of_element_located((By.ID, "pass"))).send_keys(password)
+	loginButton = WebDriverWait(driver, 1900).until(EC.presence_of_element_located((By.ID, "send2"))).click()
 	driver.get(itemUrl)
 	print('Login Sucessful')
 except:
@@ -54,39 +52,34 @@ except:
 
 #Selecting Size
 try: 
-	
-	imageSrc = WebDriverWait(driver, 1900).until(
-		EC.presence_of_element_located((By.XPATH, '//*[@id="magnifier-item-0"]'))).get_attribute("src")
+	imageSrc = WebDriverWait(driver, 1900).until(EC.presence_of_element_located((By.XPATH, '//*[@id="magnifier-item-0"]'))).get_attribute("src")
 	SKU = driver.find_element_by_xpath('//*[@id="maincontent"]/div[3]/div/div[1]/div[1]/div[2]/div[6]').text
 	price = driver.find_element_by_class_name("price").text
 	itemName = driver.find_element_by_class_name("base").text
-	quantity = WebDriverWait(driver, 1900).until(
-		EC.presence_of_element_located((By.ID, 'qty'))).send_keys("1")
-	SelectedSize = WebDriverWait(driver, 1900).until(
-		EC.presence_of_element_located((By.ID, 'attribute139')))
+	#quantity = WebDriverWait(driver, 1900).until(EC.presence_of_element_located((By.ID, 'qty'))).send_keys("1")
+	SelectedSize = WebDriverWait(driver, 1900).until(	EC.presence_of_element_located((By.ID, 'attribute139')))
 	AvailSize = Select(SelectedSize)
 	AvailSize.select_by_visible_text(itemSize)
 	current_page_url = driver.current_url
-	print("Carted " + itemName+  " Sucessful")
+	print("Carted " + itemName +  " Sucessful")
 	print("Size", itemSize)
-	AddtoCart = WebDriverWait(driver, 1900).until(
-		EC.presence_of_element_located((By.ID, 'product-addtocart-button'))).click()
-	proceedToCheckout = WebDriverWait(driver, 1900).until(
-		EC.presence_of_element_located((By.ID, 'ajaxcart_checkout'))).click() #continuea jaxcart_checkout
-	#driver.get('https://www.titan22.com/checkout/')
-	print("Waiting for checkout page to load...")
+	AddtoCart = WebDriverWait(driver, 1900).until(EC.presence_of_element_located((By.ID, 'product-addtocart-button'))).click()
+	proceedToCheckout = WebDriverWait(driver, 1900).until(EC.presence_of_element_located((By.ID, 'ajaxcart_cancel'))).click() #continuea jaxcart_checkout
+	driver.get('https://www.titan22.com/checkout/')
+	
+	print("On going checkout")
 except:
 	print("Selecting size Failed")
 
 #Checkout Page
 try:
-	#credit = WebDriverWait(driver, 1900).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[1]/main/div[3]/div/div[3]/div[5]/div[2]/div[2]/li/div/form/fieldset/div[1]/div/div/div[3]/div[1]/input'))).click()
-	checkout = WebDriverWait(driver, 1900).until(
-		EC.presence_of_element_located((By.XPATH, "(//BUTTON[@class='action primary checkout'])[3]")))
+	driver.find_element_by_id('ccpp').click()
+	shipping = WebDriverWait(driver, 1900).until(EC.presence_of_element_located((By.ID, 's_method_freeshipping_freeshipping'))).click()
+	checkout = WebDriverWait(driver, 1900).until(EC.presence_of_element_located((By.XPATH, "//BUTTON[@class='action primary checkout amasty']")))
 	checkout.click()
-	print("Waiting for Payment Page to load....")
+	print("Placed Order")
 except:
-	print("Checkout Failed")
+	print("Checkout Failed")		
 
 #2P2C PAYMENT PAGE
 try:
@@ -146,17 +139,5 @@ try:
 	
 except:
     print("Encountered Error")
-
-
-
-
-
-
-
-
-
-
-
-
 
 
