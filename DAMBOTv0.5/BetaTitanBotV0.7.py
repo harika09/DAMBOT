@@ -10,29 +10,29 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 from fake_useragent import UserAgent
 from discord_webhook import DiscordWebhook, DiscordEmbed
-from config import email, password, itemUrl, itemSize, card_Number, card_Holder_name, card_Cvv, card_Bank_name, card_Month, card_Year
+from config import chromePath, extensionPath, userAgentPath, extensionUrlPath, cardId, cardNameId, cvvId, bankNameId, cardMonthId, cardYearId, submitId, orderId, creditId, shippingId, placeOrderId, checkoutPage, sizeId, productToCart, continueShopping, sizeId, qtyId, quantity, price, productName, skuPath, imageId, imageSrc, waitingTime, loginUrl, emailId, passId, loginButton, email, password, itemUrl, itemSize, card_Number, card_Holder_name, card_Cvv, card_Bank_name, card_Month, card_Year, newRule, toggle, title, titanBypass, queueit, queueitBypass,redirectTo, clickRedirect, titanPage, titanPageCheckout, saveBypass
 
  #WebDriver
-PATH = "C:\Program Files (x86)\chromedriver.exe"
+PATH = chromePath
 options = Options()
-options.add_argument("--start-maximized");
-options.add_extension("bfgblailifedppfilabonohepkofbkpm.crx")
-user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36'
+options.add_extension(extensionPath)
+user_agent = userAgentPath
 options.add_argument("user-agent="+user_agent)
 driver = webdriver.Chrome(PATH,options=options)
-driver.get("chrome-extension://bfgblailifedppfilabonohepkofbkpm/index.html")
+driver.get(extensionUrlPath)
 
 #Bypass Queue-it
 try:
 	print('Bypassing Queue-it....')
-	driver.find_element_by_xpath('/html/body/app-root/div/div[1]/app-rule-groups/div/div[1]/ul[1]/li/button').click()
-	driver.find_element_by_xpath('/html/body/app-root/div/nav/div/ul/li[4]/app-toggle/ng-toggle/span/span[3]').click()
-	driver.find_element_by_xpath('/html/body/app-root/div/div[1]/app-rule-groups/div/div[2]/app-edit-rule-group/div/div/div[1]/div/div[1]/div[1]/input[1]').send_keys('TitanBypass')
-	driver.find_element_by_xpath('/html/body/app-root/div/div[1]/app-rule-groups/div/div[2]/app-edit-rule-group/div/div/div[2]/div/ul/li/div/div[1]/div/div[3]/input').send_keys('https://titan22.queue-it.net')
-	driver.find_element_by_xpath('/html/body/app-root/div/div[1]/app-rule-groups/div/div[2]/app-edit-rule-group/div/div/div[2]/div/ul/li/div/div[2]/div/table/tbody/tr/td[1]/ng-select/div/div/div[2]').click()
-	driver.find_element_by_xpath("//*[contains(text(), 'Redirect To')]").click()
-	driver.find_element_by_xpath('/html/body/app-root/div/div[1]/app-rule-groups/div/div[2]/app-edit-rule-group/div/div/div[2]/div/ul/li/div/div[2]/div/table/tbody/tr/td[2]/input').send_keys('https://www.titan22.com/checkout')
-	driver.find_element_by_xpath('/html/body/app-root/div/nav/div/ul/li[3]/button').click()
+	driver.find_element_by_xpath(newRule).click()
+	driver.find_element_by_xpath(toggle).click()
+	driver.find_element_by_xpath(title).clear()
+	driver.find_element_by_xpath(title).send_keys(titanBypass)
+	driver.find_element_by_xpath(queueit).send_keys(queueitBypass)
+	driver.find_element_by_xpath(redirectTo).click()
+	driver.find_element_by_xpath(clickRedirect).click()
+	driver.find_element_by_xpath(titanPage).send_keys(titanPageCheckout)
+	driver.find_element_by_xpath(saveBypass).click()
 	print('Bypassing Queue-it Sucessful')
 except:
 	print('Failed to Bypass')
@@ -41,10 +41,10 @@ except:
 #Login Account
 try:
 	print('Loggin in...')
-	driver.get('https://www.titan22.com/customer/account/login/')
-	emailAddress = WebDriverWait(driver, 1900).until(EC.presence_of_element_located((By.ID, "email"))).send_keys(email)
-	pword = WebDriverWait(driver, 1900).until(EC.presence_of_element_located((By.ID, "pass"))).send_keys(password)
-	loginButton = WebDriverWait(driver, 1900).until(EC.presence_of_element_located((By.ID, "send2"))).click()
+	driver.get(loginUrl)
+	emailAddress = WebDriverWait(driver, waitingTime).until(EC.presence_of_element_located((By.ID, emailId))).send_keys(email)
+	pword = WebDriverWait(driver, waitingTime).until(EC.presence_of_element_located((By.ID, passId))).send_keys(password)
+	loginButton = WebDriverWait(driver, waitingTime).until(EC.presence_of_element_located((By.ID, loginButton))).click()
 	driver.get(itemUrl)
 	print('Login Sucessful')
 except:
@@ -52,20 +52,18 @@ except:
 
 #Selecting Size
 try: 
-	imageSrc = WebDriverWait(driver, 1900).until(EC.presence_of_element_located((By.XPATH, '//*[@id="magnifier-item-0"]'))).get_attribute("src")
-	SKU = driver.find_element_by_xpath('//*[@id="maincontent"]/div[3]/div/div[1]/div[1]/div[2]/div[6]').text
-	price = driver.find_element_by_class_name("price").text
-	itemName = driver.find_element_by_class_name("base").text
-	quantity = WebDriverWait(driver, 1900).until(EC.presence_of_element_located((By.ID, 'qty'))).send_keys("1")
-	SelectedSize = WebDriverWait(driver, 1900).until(	EC.presence_of_element_located((By.ID, 'attribute139')))
+	image_url = WebDriverWait(driver, waitingTime).until(EC.presence_of_element_located((By.XPATH, imageId))).get_attribute(imageSrc)
+	SKU = driver.find_element_by_xpath(skuPath).text
+	price = driver.find_element_by_class_name(price).text
+	itemName = driver.find_element_by_class_name(productName).text
+	quantity = WebDriverWait(driver, waitingTime).until(EC.presence_of_element_located((By.ID, qtyId))).send_keys(quantity)
+	SelectedSize = WebDriverWait(driver, waitingTime).until(EC.presence_of_element_located((By.ID, sizeId)))
 	AvailSize = Select(SelectedSize)
 	AvailSize.select_by_visible_text(itemSize)
 	current_page_url = driver.current_url
-	print("Carted " + itemName +  " Sucessful")
-	print("Size", itemSize)
-	AddtoCart = WebDriverWait(driver, 1900).until(EC.presence_of_element_located((By.ID, 'product-addtocart-button'))).click()
-	proceedToCheckout = WebDriverWait(driver, 1900).until(EC.presence_of_element_located((By.ID, 'ajaxcart_cancel'))).click() #continuea jaxcart_checkout
-	driver.get('https://www.titan22.com/checkout/')
+	AddtoCart = WebDriverWait(driver, waitingTime).until(EC.presence_of_element_located((By.ID, productToCart))).click()
+	proceedToCheckout = WebDriverWait(driver, waitingTime).until(EC.presence_of_element_located((By.ID, continueShopping))).click() #continuea jaxcart_checkout
+	driver.get(checkoutPage)
 	
 	print("On going checkout")
 except:
@@ -73,9 +71,9 @@ except:
 
 #Checkout Page
 try:
-	driver.find_element_by_id('ccpp').click()
-	shipping = WebDriverWait(driver, 1900).until(EC.presence_of_element_located((By.ID, 's_method_freeshipping_freeshipping'))).click()
-	checkout = WebDriverWait(driver, 1900).until(EC.presence_of_element_located((By.XPATH, "//BUTTON[@class='action primary checkout amasty']")))
+	driver.find_element_by_id(creditId).click()
+	shipping = WebDriverWait(driver, 1900).until(EC.presence_of_element_located((By.ID, shippingId))).click()
+	checkout = WebDriverWait(driver, 1900).until(EC.presence_of_element_located((By.XPATH, placeOrderId)))
 	checkout.click()
 	print("Placed Order")
 except:
@@ -84,25 +82,18 @@ except:
 #2P2C PAYMENT PAGE
 try:
 	print("Submitting payment")
-	element = WebDriverWait(driver, 100).until(
-		EC.presence_of_element_located((By.ID, "credit_card_number"))).send_keys(card_Number)
-	element = WebDriverWait(driver, 100).until(
-		EC.presence_of_element_located((By.ID, "credit_card_holder_name"))).send_keys(card_Holder_name)
-	element = WebDriverWait(driver, 100).until(
-		EC.presence_of_element_located((By.ID, "credit_card_cvv"))).send_keys(card_Cvv)
-	element = WebDriverWait(driver, 100).until(
-		EC.presence_of_element_located((By.ID, "credit_card_issuing_bank_name"))).send_keys(card_Bank_name)
-	element = WebDriverWait(driver, 100).until(
-		EC.presence_of_element_located((By.ID, "credit_card_expiry_month")))
+	element = WebDriverWait(driver, 100).until(EC.presence_of_element_located((By.ID, cardId))).send_keys(card_Number)
+	element = WebDriverWait(driver, 100).until(EC.presence_of_element_located((By.ID, cardNameId))).send_keys(card_Holder_name)
+	element = WebDriverWait(driver, 100).until(EC.presence_of_element_located((By.ID, cvvId))).send_keys(card_Cvv)
+	element = WebDriverWait(driver, 100).until(EC.presence_of_element_located((By.ID, bankNameId))).send_keys(card_Bank_name)
+	element = WebDriverWait(driver, 100).until(EC.presence_of_element_located((By.ID, cardMonthId)))
 	drp = Select(element)
 	drp.select_by_visible_text(card_Month)
-	element = WebDriverWait(driver, 100).until(
-		EC.presence_of_element_located((By.ID, "credit_card_expiry_year")))
+	element = WebDriverWait(driver, 100).until(EC.presence_of_element_located((By.ID, cardYearId)))
 	drp = Select(element)
 	drp.select_by_visible_text(card_Year)
-	element = WebDriverWait(driver, 100).until(
-		EC.presence_of_element_located((By.ID, "btnCCSubmit"))).click()
-	orderNumber =driver.find_element_by_xpath('//*[@id="payment-order"]/span').text
+	element = WebDriverWait(driver, 100).until(EC.presence_of_element_located((By.ID, submitId))).click()
+	orderNumber =driver.find_element_by_xpath(orderId).text
 	print("Payment sucess check for OTP/Password")
 
 
@@ -127,7 +118,7 @@ try:
 	#embed.set_image(url='https://assets.queue-it.net/titan22/userdata/titan.png', icon='https://assets.queue-it.net/titan22/userdata/titan.png')
 
 	# set thumbnail
-	embed.set_thumbnail(url=imageSrc)
+	embed.set_thumbnail(url=image_url)
 
 	# set footer
 	embed.set_footer(text='DAMBOTv0.6 developed by KyaAlod')
@@ -139,5 +130,3 @@ try:
 	
 except:
     print("Encountered Error")
-
-
