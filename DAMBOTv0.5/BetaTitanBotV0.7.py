@@ -16,6 +16,8 @@ from config import chromePath, extensionPath, userAgentPath, extensionUrlPath, c
 PATH = chromePath
 options = Options()
 options.add_extension(extensionPath)
+options.add_argument('--blink-settings=imagesEnabled=false')
+options.add_argument("--disable-gpu")
 user_agent = userAgentPath
 options.add_argument("user-agent="+user_agent)
 driver = webdriver.Chrome(PATH,options=options)
@@ -52,7 +54,7 @@ except:
 
 #Selecting Size
 try: 
-	image_url = WebDriverWait(driver, waitingTime).until(EC.presence_of_element_located((By.XPATH, imageId))).get_attribute(imageSrc)
+	#image_url = WebDriverWait(driver, waitingTime).until(EC.presence_of_element_located((By.XPATH, imageId))).get_attribute(imageSrc)
 	SKU = driver.find_element_by_xpath(skuPath).text
 	price = driver.find_element_by_class_name(price).text
 	itemName = driver.find_element_by_class_name(productName).text
@@ -118,7 +120,7 @@ try:
 	#embed.set_image(url='https://assets.queue-it.net/titan22/userdata/titan.png', icon='https://assets.queue-it.net/titan22/userdata/titan.png')
 
 	# set thumbnail
-	embed.set_thumbnail(url=image_url)
+	#embed.set_thumbnail(url=image_url)
 
 	# set footer
 	embed.set_footer(text='DAMBOTv0.6 developed by KyaAlod')
