@@ -1,7 +1,8 @@
-# DAMBOTv0.6
+# DAMBOTv0.7
 DAMBOTv0.6(Web Automation + Autofill forms)
 
  Update Fixed:
+- loading image disabled for better and faster reloading
 - Updated checkout page
 - improved checkout speed
 
@@ -16,5 +17,5 @@ DAMBOTv0.6(Web Automation + Autofill forms)
 
  TODO:
 - Improve checkout Speed
-- Bug with place order on Checkout page
+- Bug with place order on Checkout page (Fixed)
 - Multiple selection of size when selected size is not available
